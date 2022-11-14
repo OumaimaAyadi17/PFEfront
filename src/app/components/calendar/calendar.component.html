@@ -1,0 +1,119 @@
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Calendar</h4>
+                </div>   
+            </div>   
+        </div>
+<div class="container">
+  
+  <div class="d-flex align-items-center">
+    <div class="col-sm-4">
+        <a href="apps-projects-add.html" class="btn btn-danger rounded-pill mb-3" data-bs-toggle="modal" data-bs-target="#standard-modal"><i class="mdi mdi-plus"></i> Create Mission</a>
+    </div>
+    <br>
+    <label for="status-select" class="me-2">Engineer</label>
+
+    <select class="form-select" id="status-select" (change)="getallEvents()" [(ngModel)]="ing" >
+       
+        <option *ngFor="let i of listingenieurs" [value]="i.username" >{{i.lastName}} {{i.firstName}}</option>
+      
+       
+    </select>
+    <div>
+      <a _ngcontent-eqj-c82="" href="javascript: void(0);" class="btn btn-primary" onClick="window.location.reload();"><i _ngcontent-eqj-c82="" class="mdi mdi-autorenew" ></i></a>
+
+    </div>
+    <!-- <div>
+      <a _ngcontent-eqj-c82="" href="javascript: void(0);" class="btn  btn-primary ms-2"  data-bs-toggle="modal" data-bs-target="#standard-modal">Create Mission<i _ngcontent-eqj-c82=""  class="mdi mdi-plus-circle-outline" ></i></a>
+
+    </div> -->
+</div>
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+ </div>
+ </div>
+
+
+  <!-- MODAL add TASK -->
+<div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="standard-modalLabel"> Add Task</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+          </div>
+          <div class="modal-body">
+              <form class="p-1" [formGroup]="tacheForm">
+                  <div class="row">
+                      <div class="col-md-8">
+                          <div class="mb-3">
+                              <label for="task-title" class="form-label">Title</label>
+                              <input type="text" class="form-control form-control-light" id="task-title" placeholder="Enter title"  formControlName="nom">
+                          </div>
+                      </div>
+
+                      <div class="col-md-4">
+                          <div class="mb-3">
+                              <label for="task-priority2" class="form-label">Priority</label>
+                              <select class="form-select form-control-light" id="task-priority2" formControlName="priority" >
+                                  <option value="Low">Low</option>
+                                  <option value="Medium">Medium</option>
+                                  <option value="High">High</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <label for="task-description" class="form-label">Description</label>
+                      <textarea class="form-control form-control-light" id="task-description" rows="3" formControlName="description"></textarea>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="mb-3">
+                              <label for="task-title" class="form-label">Client</label>
+                              <select class="form-select form-control-light" id="task-priority" formControlName="CLIENT_ID">
+                                  <option *ngFor="let client of listClients" [value]="client.id">{{client.lastName}} {{client.firstName}}</option>
+                                 
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="task-title" class="form-label">Ingenieur</label>
+                            <select class="form-select form-control-light" id="task-priority" formControlName="ING_ID">
+                                <option *ngFor="let ingenieur of listingenieurs" [value]="ingenieur.id">{{ingenieur.lastName}} {{ingenieur.firstName}}</option>
+                               
+                            </select>
+                        </div>
+                    </div>
+
+                      <!-- <div class="col-md-6"> -->
+                          <div class="mb-3 position-relative" id="datepicker1">
+                              <label class="form-label">start</label>
+                              <input type="datetime-local" class="form-control"  formControlName="start">
+                          </div>
+                          <div class="mb-3 position-relative" id="datepicker1">
+                              <label class="form-label">end</label>
+                              <input type="datetime-local" class="form-control"  formControlName="end">
+                          </div>
+                        
+                      <!-- </div> -->
+                  </div>
+                  
+                  
+              </form>
+          </div>
+          <div class="modal-footer"> 
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="uil-times"></i>Close</button>
+              <button type="button" class="btn btn-primary"(click)="addTache()" data-bs-dismiss="modal"><i class=" uil-check"></i>Save changes</button>
+          </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

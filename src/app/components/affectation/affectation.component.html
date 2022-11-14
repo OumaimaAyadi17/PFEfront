@@ -1,0 +1,88 @@
+
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li   class="breadcrumb-item"><a routerLink="/home" >Dashboard</a></li>
+                            <li   class="breadcrumb-item"><a routerLink="/home/listtasks">Tasks</a></li>
+                            <li class="breadcrumb-item active">Client Requests</li>
+                        </ol>
+                    </div>
+                    <!-- <h4 class="page-title">Demandes Clients  </h4> -->
+                
+             </div>
+            </div>
+        </div>     
+        <!-- end page title --> 
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="header-title">Client requests </h4>
+                        </div>
+                        <div class="alert alert-warning mt-2" role="alert">
+                            <i class="uil-files-landscapes me-1 h4 align-middle"></i> <b>{{totaldemandes}}</b> total clients requests
+                        </div>
+                
+                        <div class="d-flex align-items-center border border-light rounded p-2 mb-2" *ngFor="let c of demandesList">
+                            <div class="flex-shrink-0 me-2">
+                                <img src="http://localhost:8082/users/files/{{c.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fw-semibold my-0">{{c.nom}}</h5>
+                                <p class="mb-0">{{c.description}}</p>
+                            </div> 
+                            <button _ngcontent-viy-c71="" type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm" data-bs-placement="top" title="" data-bs-original-title="Info" aria-label="Info"  (click)="open(c.id)"><i _ngcontent-viy-c71="" _ngcontent-agx-c68=""  class="mdi mdi-account-convert-outline me-1 h4  my-0"></i>Assign Engineer</button>
+                            <!-- <button href="javasript:void(0)" class="text-muted"   
+                            (click)="open(c.id)"><i class="mdi mdi-information-outline h4  my-0"></i>affecter Ingenieur</button> -->
+                        </div>
+                      
+                       
+                
+                       
+                    </div>
+                </div>
+                </div>
+                </div>
+
+    </div>
+    </div>
+
+<!-- modal affectation ing  -->
+<div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mySmallModalLabel">Assign  engineer</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <form class="p-1" [formGroup]="AffectationForm">
+                    <label for="task-title" class="form-label">Engineer</label>
+                    <select class="form-select form-control-light" id="task-priority" formControlName="ING_ID">
+                        <option *ngFor="let ing of listingenieurs" [value]="ing.id">{{ing.lastName}} {{ing.firstName}}</option>
+                       
+                    </select>
+                </form>
+               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"(click)="AffecterIng()" data-bs-dismiss="modal">Save changes</button>
+                </div>
+              
+            </div>
+        </div><!-- /.modal-content -->
+     
+    </div><!-- /.modal-dialog -->
+   
+</div><!-- /.modal -->

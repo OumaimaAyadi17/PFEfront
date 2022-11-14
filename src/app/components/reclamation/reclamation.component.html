@@ -1,0 +1,306 @@
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a routerLink="/home">Dashboard</a></li>
+                            <li class="breadcrumb-item" *ngIf="isAdmin()"><a routerLink="/home/listtasks" >Mission Orders</a></li>
+                            <li class="breadcrumb-item" *ngIf="isClient()"><a routerLink="/home/demandeClient" >Demands</a></li>
+
+                            <li class="breadcrumb-item active">Detail Mission</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Detail Mission</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title --> 
+<!-- task details -->
+ <div class="col-xxl-4">
+    <div class="card">
+        <div class="card-body">
+            <!-- <div class="dropdown card-widgets">
+                <a href="#" class="dropdown-toggle arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="uil uil-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a href="javascript:void(0);" class="dropdown-item">
+                        <i class="uil uil-file-upload me-1"></i>Attachment
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item">
+                        <i class="uil uil-edit me-1"></i>Edit
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item">
+                        <i class="uil uil-file-copy-alt me-1"></i>Mark as Duplicate
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    
+                    <a href="javascript:void(0);" class="dropdown-item text-danger">
+                        <i class="uil uil-trash-alt me-1"></i>Delete
+                    </a>
+                </div> 
+              
+            </div>  -->
+            
+            <div class="form-check float-start">
+               <h4>
+                    {{tache.nom}}
+                </h4>
+            </div> <!-- end form-check-->
+
+            <hr class="mt-4 mb-2">
+
+            <div class="row">
+                <div class="col">
+                    <p class="mt-2 mb-1 text-muted">Description</p>
+                   <label class="page-title">  {{tache.description}}</label>
+                  
+
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- assignee -->
+                            <p class="mt-2 mb-1 text-muted">Assigned To</p>
+                            <div class="d-flex">
+                                <img src="http://localhost:8082/users/files/{{tache.ing.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
+                                <div>
+                                    <h5 class="mt-1 font-14">
+                                       {{tache.ing.firstName}}  {{tache.ing.LastName}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <!-- end assignee -->
+                        </div> <!-- end col -->
+                        <div class="col-6">
+                            <!-- assignee -->
+                            <p class="mt-2 mb-1 text-muted">Client </p>
+                            <div class="d-flex">
+                                <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="Arya S" class="rounded-circle me-2" height="24">
+                                <div>
+                                    <h5 class="mt-1 font-14">
+                                       {{tache.client1.firstName}}  {{tache.client1.LastName}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <!-- end assignee -->
+                        </div> <!-- end col -->
+                        <div class="col-3">
+                            <!-- start due date -->
+                            <p class="mt-2 mb-1 text-muted">Creation date</p>
+                            <div class="d-flex">
+                                <i class="uil uil-schedule font-18 text-success me-1"></i>
+                                <div>
+                                    <h5 class="mt-1 font-14">
+                                       {{tache.creationDate | date : 'dd/MM/yyyy '}} 
+                                    </h5>
+                                </div>
+                            </div>
+                            <!-- end due date -->
+                        </div>
+                        <div class="col-3">
+                            <!-- start due date -->
+                            <p class="mt-2 mb-1 text-muted">Scheduled start date</p>
+                            <div class="d-flex">
+                                <i class="uil uil-schedule font-18 text-success me-1"></i>
+                                <div>
+                                    <h5 class="mt-1 font-14">
+                                       {{tache.start | date : 'dd/MM/yyyy HH:MM'}} 
+                                    </h5>
+                                </div>
+                            </div>
+                            <!-- end due date -->
+                        </div>
+                        <div class="col-3">
+                            <!-- start due date -->
+                            <p class="mt-2 mb-1 text-muted">Scheduled end date</p>
+                            <div class="d-flex">
+                                <i class="uil uil-schedule font-18 text-success me-1"></i>
+                                <div>
+                                    <h5 class="mt-1 font-14">
+                                       {{tache.end | date : 'dd/MM/yyyy HH:MM'}} 
+                                    </h5>
+                                </div>
+                            </div>
+                            <!-- end due date -->
+                        </div>
+
+                    </div> <!-- end row -->
+
+                    <!-- task description -->
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="border rounded">
+                            </div>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end task description -->
+
+                    <!-- start attachments -->
+                    <h5 class="mt-4 mb-2 font-16"  *ngIf="tache.status=='inprogress' ||tache.status=='done'">Attachments</h5>
+                   
+                    <div class="card mb-2 shadow-none border" *ngFor="let i of listfiches">
+                        
+                        <div class="p-1" >
+                            
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <img src="assets/images/projects/project-1.jpg" class="avatar-sm rounded" alt="file-image">
+                                </div>
+                                
+                                <div class="col ps-0">
+                                    <!-- <a href="javascript:void(0);" class="text-muted fw-bold">new-contarcts.docx</a> -->
+                                    <p class="mb-0">{{i.id}}</p>
+                                </div>
+                                <div class="col-auto" id="tooltip-container10">
+                                   
+                                     <button _ngcontent-ekw-c51="" href="javascript:void(0);" data-bs-container="#tooltip-container9" data-bs-toggle="tooltip" [routerLink]="['/home/detailFiche',i.id]" data-bs-placement="bottom" title="" data-bs-original-title="Download" class="btn btn-link text-muted btn-lg p-0">
+                                                <i _ngcontent-ekw-c51="" class="mdi mdi-eye"></i>
+                                     </button>                                             
+                                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end attachments -->
+
+                    <!-- comments -->
+                    <div class="row mt-3" *ngIf="tache.status=='inprogress' ||tache.status=='done'">
+                        <div class="col">
+                            <h5 class="mb-2 font-16">Complaints</h5>
+                           
+                            <div class="text-center" *ngIf="listReclamations.length==0"> No reclamations </div>
+
+                            <div class="d-flex mt-3 p-1" *ngFor="let r of listReclamations">
+                                <img src="http://localhost:8082/users/files/{{r.tacheClient.client1.image}}" class="me-2 rounded-circle" height="36" alt="Arya Stark">
+                                <div class="w-100">
+                                    <h5 class="mt-0 mb-0">
+                                      <span class="float-end text-muted font-12">{{r.creationDate | date : 'dd-MM-yyyy'}}</span>
+                                       {{r.tacheClient.client1.firstName}}  {{r.tacheClient.client1.lastName}}
+                                    </h5>
+                                    <p class="mt-1 mb-0 text-muted">
+                                     {{r.description}}
+                                    </p>
+                                    <!-- <div _ngcontent-kdu-c92="" id="tooltip-container10" class="float-end text-muted font-12">
+                                        <a _ngcontent-kdu-c92="" href="javascript:void(0);" data-bs-container="#tooltip-container10" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Download" class="btn btn-link text-muted btn-lg p-0" *ngIf="isAdmin()"  data-bs-toggle="modal" data-bs-target="#centermodal"(click)="open(r)">
+                                            <i class=" dripicons-reply"></i></a>
+                                            <a _ngcontent-kdu-c92="" href="javascript:void(0);" data-bs-container="#tooltip-container10" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" class="btn btn-link text-danger btn-lg p-0" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm"  (click)="getReponseReclamations(r.id)">
+                                                <i class=" dripicons-conversation"></i></a>
+                                    </div> -->
+                                    <div *ngIf="r.ok==0">
+                                        <a href="javascript: void(0);" class="btn btn-sm btn-link text-success p-0 ps-2"  *ngIf="isAdmin()"  data-bs-toggle="modal" data-bs-target="#centermodal"(click)="open(r)" >
+                                            <i class="uil uil-comment-alt-edit me-1"></i> Reply
+                                        </a>
+                                    </div>
+                                    
+                                    <div _ngcontent-kdu-c92="" id="tooltip-container10"  class="float-end text-muted font-12" >
+                                        <a href="javascript: void(0);" class="btn btn-sm btn-link text-dark-50 p-0" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm"  (click)="getReponseReclamations(r.id)">
+                                            <i class="uil  uil-comment-alt-message me-1"></i> View Answer
+                                        </a>
+                                        
+                                    </div>
+                               
+
+                                    
+                                </div>
+                             
+
+
+                               
+                            </div> <!-- end comment -->
+
+                            <hr class="m-3">
+
+                            <!-- <div class="d-flex mt-2 p-1">
+                                <img src="assets/images/users/avatar-5.jpg" class="me-2 rounded-circle" height="36" alt="Dominc B">
+                                <div class="w-100">
+                                    <h5 class="mt-0 mb-0">
+                                        <span class="float-end text-muted font-12">3:30am</span>
+                                        Gary Somya
+                                    </h5>
+                                    <p class="mt-1 mb-0 text-muted">
+                                        @Arya FYI..I have created some general guidelines last year.
+                                    </p>
+                                </div>
+                            </div> 
+
+                            <hr> -->
+
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                    <div class="row mt-2" *ngIf="isClient()" >
+                        <div class="col">
+                            <div class="border rounded" *ngIf="tache.status=='inprogress'">
+                                <form action="#" class="comment-area-box"  [formGroup]="ReclamationForm">
+                                    <textarea rows="3" class="form-control border-0 resize-none" placeholder="Your comment..." formControlName="description"  ></textarea>
+                                    <div class="p-2 bg-light">
+                                        <div class="float-end">
+                                            <button type="submit" class="btn btn-sm btn-success" (click)="AddReclamation()"><i class="uil uil-message me-1" ></i>Submit</button>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="btn btn-sm px-1 btn-light"><i class="uil uil-cloud-upload"></i></a>
+                                            <a href="#" class="btn btn-sm px-1 btn-light"><i class="uil uil-at"></i></a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <!-- end .border-->
+                        </div> <!-- end col-->
+                    </div> <!-- end row-->
+                    <!-- end comments -->
+                </div> <!-- end col -->
+            </div> <!-- end row-->
+        </div> <!-- end card-body -->
+    </div> <!-- end card-->
+</div> <!-- end col -->
+</div>
+</div>
+
+                
+   <!-- modal add Reponse Reclamation -->
+   <div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myCenterModalLabel">Reply Complaint</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true" ></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="comment-area-box"  [formGroup]="ReponseForm">
+                    <textarea rows="3" class="form-control border-0 resize-none" placeholder="Your comment..." formControlName="description"   ></textarea>
+                    <div class="p-2 bg-light">
+                        <div class="float-end">
+                            <button type="submit" class="btn btn-sm btn-success"(click)="AddReponseReclamation()" data-bs-dismiss="modal" aria-hidden="true"><i class="uil uil-message me-1" ></i>Submit</button>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-sm px-1 btn-light"><i class="uil uil-cloud-upload"></i></a>
+                            <a href="#" class="btn btn-sm px-1 btn-light"><i class="uil uil-at"></i></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- modal Affichage Reponse -->
+<div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mySmallModalLabel">Answer</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body" *ngFor="let s of Reponse">
+                <h5 class="mt-0 mb-0">
+                    <span class="float-end text-muted font-12">{{s.creationDate | date : 'dd-MM-yyyy'}}</span>
+                   
+                  </h5>
+              {{s.description}}
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /.modal -->

@@ -1,0 +1,159 @@
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                  
+                    <h4 class="page-title">Clients List</h4>
+                 
+                </div>
+               
+                
+            </div>
+            
+        </div>
+        <!-- end page title --> 
+       
+
+        <div class="row">
+            <div class="row mb-2">
+                <div class="col-xl-9">
+                    <div  class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+                        <div class="col-auto">
+                           
+                            <input type="search" class="form-control"  placeholder="Search ..."  [(ngModel)]="term_search">
+                        </div>
+                        
+                       
+                            <!-- <div class="d-flex align-items-center">
+                                <label for="status-select" class="me-2">Compte</label>
+                                <select class="form-select" id="status-select">
+                                    <option selected="">Choose...</option>
+                                    <option  value="1" >validé</option>
+                                    <option value="0"  >invalid</option>
+                                   
+                                   
+                                </select>
+                            </div> --> 
+                            <div class="col-xl-2">
+                                <div class="text-xl-end mt-xl-0 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class=" dripicons-user"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <button (click)="getValide()" class="dropdown-item"><i class="dripicons-checkmark"></i>Valid account</button>
+                                        <button (click)="getBloq()"  class="dropdown-item"><i class="dripicons-wrong"></i> Blocked account</button>
+                                        <button  (click)="getEnAttente()"  class="dropdown-item"><i class=" dripicons-hourglass"></i>Pending Account</button>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        
+                    </div>
+                                    
+                </div>
+               
+            </div>
+
+            <div class="col-md-6 col-xxl-3"  *ngFor="let c of listclients| recherche:term_search | paginate: { itemsPerPage: 4, currentPage: p }">
+                <div class="card">
+                    <div class="card-body">
+                      
+                        
+                        <div class="dropdown float-end">
+                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="mdi mdi-dots-horizontal"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <button [routerLink]="['/home/detailClient',c.id]"  class="dropdown-item"><i class=" dripicons-user-id"></i>View Profile</button>
+                                <!-- item-->
+                                
+                                <button  *ngIf="isAdmin()" href="javascript:void(0);" class="dropdown-item text-danger" (click)="delete(c.id)"> <i class=" dripicons-trash me-1"></i>Remove Profile</button>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <img src="http://localhost:8082/users/files/{{c.image}}" class="rounded-circle avatar-md img-thumbnail" alt="friend">
+                            <h4 class="mt-3 my-1">{{c.firstName}} {{c.lastName}}<i *ngIf="c.valide=='1' && c.enabled=='1'" class="mdi mdi-check-decagram text-primary"></i></h4>
+                            <p class="mb-0 text-muted"><i class="mdi mdi-email-outline me-1"></i>{{c.email}}</p>
+                            <hr class="bg-dark-lighten my-3">
+                           <h5 class="mt-3 fw-semibold text-muted">Account Status
+                            <span *ngIf="c.valide=='0'&& c.enabled=='1'" class="badge badge-warning-lighten rounded-pill">Pending</span>
+                            <span *ngIf="c.valide=='1' && c.enabled=='1'" class="badge bg-success rounded-pill">Valid</span>
+                            <span *ngIf="c.enabled=='0' && c.valide=='1'" class="badge bg-danger rounded-pill">Blocked</span>
+                        </h5>
+                        
+                            <div class="row mt-3"  *ngIf="isAdmin()">
+                                <div class="col-4" >
+                                    <a id="tooltip-container1">
+                                        <span  *ngIf="c.valide=='0'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" (click)="validerClient(c)" >
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" >
+                                                <i class="uil-shield-check" ></i>
+                                            </button>
+                                        </span>
+                                        <span  *ngIf="c.valide=='1'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" title="Disabled tooltip">
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>
+                                                <i class="uil-shield-check" ></i>
+                                            </button>
+                                        </span>
+                                        
+                                    </a>
+                                    <!-- <a  *ngIf="c.enabled=='0'"  href="javascript:void(0);" class="btn w-100 btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Message" aria-label="Message" (click)="validerClient(c.id)"><i class="uil-shield-check" ></i></a> -->
+                                    <!-- <a *ngIf="c.enabled=='1'"  href="javascript:void(0);" class="btn w-100 btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Email" aria-label="Email" (click)="desactiverClient(c.id)"><i class="uil-lock-open-alt" ></i></a> -->
+
+                                </div>
+                                <div class="col-4" >
+                                    <a id="tooltip-container1">
+                                        <span  *ngIf="c.enabled=='1'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" (click)="desactiverClient(c.id)">
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" >
+                                                <i class="dripicons-wrong" ></i>
+                                            </button>
+                                        </span>
+                                        <span  *ngIf="c.enabled=='0'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" title="Disabled tooltip" >
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>
+                                                <i class="dripicons-wrong" ></i>
+                                            </button>
+                                        </span>
+                                        
+                                    </a>
+                                    <a  id="tooltip-container1">
+                                        <!-- <span class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" title="Disabled tooltip">
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>
+                                                <i class="uil-lock-open-alt" ></i></button>
+                                        </span> -->
+                                        <span  *ngIf="c.enabled=='0'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" (click)="activerClient(c.id)">
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" >
+                                                <i class="uil-lock-open-alt" ></i>
+                                            </button>
+                                        </span>
+                                        <span  *ngIf="c.enabled=='1'" class="d-inline-block" tabindex="0" data-bs-container="#tooltip-container1" data-bs-toggle="tooltip" title="Disabled tooltip" >
+                                            <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>
+                                                <i class="uil-lock-open-alt" ></i>
+                                            </button>
+                                        </span>
+                                    </a>
+                                </div>
+                              
+                              
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+             
+            </div> <!-- End col -->
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+             <!-- End col -->
+        </div> <!-- End row -->
+
+        
+        
+    </div> <!-- End Content -->
+
+   
+
+</div>

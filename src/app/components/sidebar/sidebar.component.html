@@ -1,0 +1,128 @@
+<div class="leftside-menu leftside-menu-detached">
+
+    <div class="leftbar-user">
+        <a href="javascript: void(0);">
+            <img src="http://localhost:8082/users/files/{{userconnect.image}}" alt="user-image" height="70" class="rounded-circle shadow-sm">
+            <span class="leftbar-user-name">{{userconnect.username}}</span>
+        </a>
+    </div>
+
+    <!--- Sidemenu -->
+    <ul class="side-nav">
+
+        <li class="side-nav-title side-nav-item">Navigation</li>
+
+        <li  class="side-nav-item">
+            <a href="/home/layout" class="side-nav-link">
+                <i class="uil-home-alt"></i>
+                <span > Dashboards </span>
+            </a>
+          
+        </li>
+
+        <li class="side-nav-title side-nav-item">Apps</li>
+      
+        <li class="side-nav-item" *ngIf="isAdmin()">
+            <a href="/home/listclient" class="side-nav-link">
+                <i class="uil-users-alt"></i>
+                <span> Clients </span>
+            </a>
+        </li>
+        <li  class="side-nav-item" *ngIf="isAdmin()">
+            <a href="/home/listingenieurs" class="side-nav-link" >
+                <i class="uil-constructor"></i>
+                <span >  Engineers </span>
+            </a>
+        </li>
+        <li class="side-nav-item"  *ngIf="isIngnieur() || isAdmin()">
+            <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+                <i class="uil-clipboard-alt"></i>
+                <span *ngIf="isIngnieur()">   Missions </span>
+                <span  *ngIf="isAdmin()">  
+                    Mission orders </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="sidebarTasks">
+                <ul class="side-nav-second-level" >
+                 
+                    <li *ngIf="isIngnieur()">
+                        <a href="/home/tasks">Progress Mission Board</a>
+                    </li>
+                    <li  *ngIf="isAdmin()">
+                        <a routerLink="/home/listtasks"><i class="mdi mdi-clipboard-text-multiple-outline"></i> Mission list</a>
+                    </li>
+                    <li  *ngIf="isAdmin()">
+
+                        <a routerLink="/home/demandeIng"><i class="mdi mdi-clipboard-list-outline"></i> Engineers demands</a>
+                    </li>
+                    <li  *ngIf="isAdmin() ">
+                        <a routerLink="/home/demandeCloture"> <i class="mdi mdi-clipboard-text-off-outline"></i>  Closing Requests Mission</a>
+                    </li>
+                    <li  *ngIf="isAdmin()">
+
+                        <a routerLink="/home/affectation"><i class="mdi mdi-clipboard-account-outline"></i> Clients demands</a>
+                    </li>
+                  
+                </ul>
+            </div>
+
+        </li>
+      
+        <li class="side-nav-item" *ngIf="isClient()">
+            <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+                <i class="uil-clipboard-alt"></i>
+                <span> Demands </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="sidebarTasks">
+                <ul class="side-nav-second-level" >
+                    <li>
+                        <a href="/home/demandeClient"><i class="mdi mdi-clipboard-text-multiple-outline"></i> List demands</a>
+                    </li>
+                    <li >
+                        <a routerLink="/home/demandeCloture"> <i class="mdi mdi-clipboard-text-off-outline"></i> Closing Requests mission</a>
+                    </li>
+                    <!-- <li>
+                        <a routerLink="/home/demandeCloture">Demande Clôture tache</a>
+                    </li> -->
+                  
+                </ul>
+            </div>
+            
+        </li>
+       
+        <li  class="side-nav-item" *ngIf="isAdmin()">
+            <a  href="/home/listefiche" class="side-nav-link" >
+                <i class="uil-folder-plus"></i>
+                <span >Intervention files </span>
+            </a>
+        </li>
+        <li  class="side-nav-item" *ngIf="isIngnieur()">
+            <a href="/home/listeficheIng" class="side-nav-link" >
+                <i class="uil-folder-plus"></i>
+                <span >Intervention files </span>
+            </a>
+        </li>
+        <li  class="side-nav-item" *ngIf="isAdmin()">
+            <a routerLink="/home/calender" class="side-nav-link">
+                <i class="uil-calender"></i>
+                <span> Calendar </span>
+            </a>
+        </li>
+        <!-- <li class="side-nav-item">
+            <a routerLink="/home/listReclamation" class="side-nav-link">
+                <i class=" uil-envelope-info"></i>
+                <span> Reclamation </span>
+            </a>
+        </li> -->
+        <!-- <li class="side-nav-item">
+            <a href="apps-chat.html" class="side-nav-link">
+                <i class="uil-comments-alt"></i>
+                <span> Chat </span>
+            </a>
+        </li> -->
+
+      
+            
+</ul>
+</div>

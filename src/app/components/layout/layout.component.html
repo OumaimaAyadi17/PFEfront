@@ -1,0 +1,395 @@
+<div class="content">
+    <!-- start page title -->
+    <div class="row">
+        <h1>test</h1>
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <form class="d-flex">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-light" id="dash-daterange">
+                            <span class="input-group-text bg-primary border-primary text-white">
+                                <i class="mdi mdi-calendar-range font-13"></i>
+                            </span>
+                        </div>
+                        <a href="javascript: void(0);" class="btn btn-primary ms-2">
+                            <i class="mdi mdi-autorenew"></i>
+                        </a>
+                        <a href="javascript: void(0);" class="btn btn-primary ms-1">
+                            <i class="mdi mdi-filter-variant"></i>
+                        </a>
+                    </form>
+                </div>
+                <h4 class="page-title">Dashboard</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <div class="row" *ngIf="isAdmin()">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="header-title" style="color:rgb(206, 116, 162)">Missions</h4>
+                       
+                    </div>
+
+                   <app-chart></app-chart>
+                 
+                    
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+        <div class="col-lg-5">
+            <div class="card tilebox-one">
+                <div class="card-body">
+                    <i class="uil uil-constructor float-end" style="color:darkmagenta"></i>
+                    <h6 class="text-uppercase mt-0"style="color:darkmagenta">Total Engineers</h6>
+                    <h2 class="my-2 " id="active-users-count">{{totaling}}</h2>
+                    <!-- <p class="mb-0 text-muted">
+                        <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
+                        <span class="text-nowrap">Since last month</span>  
+                    </p> -->
+                </div> <!-- end card-body-->
+            </div>
+            <!--end card-->
+            
+            <div class="card tilebox-one">
+                <div class="card-body">
+                    <i class="uil uil-users-alt float-end" style="color: rgb(198, 149, 42)"></i>
+                 
+                    <h6 class="text-uppercase mt-0" style="color: rgb(198, 149, 42)">Total Clients</h6>
+                    <h2 class="my-2" id="active-users-count">{{totalclient}}</h2>
+                    <!-- <p class="mb-0 text-muted">
+                        <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
+                        <span class="text-nowrap">Since last month</span>  
+                    </p> -->
+                </div> <!-- end card-body-->
+            </div>
+            <div class="card tilebox-one">
+                <div class="card-body">
+                    <i class="uil  uil-clipboard float-end" style="color:red"></i>
+                    <h6 class="text-uppercase mt-0" style="color:red">Total Mission</h6>
+                    <h2 class="my-2" id="active-users-count">{{totalinprogress+totaltodo+totaldone}}</h2>
+                    <!-- <p class="mb-0 text-muted">
+                        <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
+                        <span class="text-nowrap">Since last month</span>  
+                    </p> -->
+                </div> <!-- end card-body-->
+            </div>
+            <div class="card tilebox-one">
+                <div class="card-body">
+                    <i class="uil uil-file float-end" style="color:rgb(48, 162, 132)"></i>
+                    <h6 class="text-uppercase mt-0" style="color:rgb(48, 162, 132)">Total files Intervention</h6>
+                    <h2 class="my-2" id="active-users-count">{{totalfiches}}</h2>
+                    <!-- <p class="mb-0 text-muted">
+                        <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
+                        <span class="text-nowrap">Since last month</span>  
+                    </p> -->
+                </div> <!-- end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+      
+   
+    </div>
+    <div class="row"  *ngIf="isAdmin()">
+        <div class="col-lg-8">
+
+            <div class="row">
+                <div class="col-sm-5">
+                   
+                    <div class="card widget-flat badge-success-lighten">
+                     
+                        <div class="card-body">
+                            <div class="float-end">
+                                <i class="mdi mdi-progress-check"></i>
+                            </div>
+                            <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Total</h5>
+                           
+                            <h3 class="mt-3 mb-3">{{totalinprogress+totaldone+totaltodo}}</h3>
+                           
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                <div class="col-sm-5">
+                    <div class="card widget-flat bg-info-lighten">
+                        <div class="card-body">
+                            <div class="float-end">
+                                <i class="mdi mdi-progress-pencil"></i>
+                            </div>
+                          
+                            
+                            <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Todo</h5>
+                            <h3 class="mt-3 mb-3">{{totaltodo}}</h3>
+                            
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+                <div class="col-sm-5">
+                   
+                    <div class="card widget-flat badge-warning-lighten">
+                     
+                        <div class="card-body">
+                            <div class="float-end">
+                                <i class="mdi mdi-progress-clock"></i>
+                            </div>
+                            <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Inprogress</h5>
+                           
+                            <h3 class="mt-3 mb-3">{{totalinprogress}}</h3>
+                           
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+
+                <div class="col-sm-5">
+                    <div class="card widget-flat badge-danger-lighten">
+                        <div class="card-body">
+                            
+                            <div class="float-end">
+                                <i class="mdi mdi-progress-close"></i>
+                            </div>
+                            <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Closed</h5>
+                            
+                            <h3 class="mt-3 mb-3">{{totaldone}}</h3>
+                           
+                        </div> <!-- end card-body-->
+                    </div> <!-- end card-->
+                </div> <!-- end col-->
+         
+              
+        
+            </div> <!-- end row -->
+
+            
+              
+
+             
+           
+
+        </div> <!-- end col -->
+
+        <div class="col-lg-4">
+           
+            <div class="card card-h-100">
+                
+                <div class="card-body">
+                    <h4 class="card-title float-left" style="color:rgb(48, 114, 162)">List of engineers</h4>
+                    <div class="d-flex justify-content-between align-items-center mb-2" *ngFor="let ing of listing">
+                      
+                        <div class="form-check mb-2" >
+                            <input type="checkbox"  aria-label="multiselect-item"
+                            class="form-check-input" id="customCheckcolor1" [value]="ing.id" (change)="getTaskesInprogresbyIng($event);getTaskesTodobyIng($event);getTaskesdonebyIng($event)" >
+                            <label class="form-check-label" for="customCheckcolor1" >{{ing.firstName}}</label>
+                        </div>
+                    </div>
+
+               
+                        
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+   
+    <div class="row" *ngIf="isIngnieur()">
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="header-title">Missions</h4>
+                       
+                    </div>
+
+                  <app-chart-ing></app-chart-ing>
+                    
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+       
+    </div>
+    
+    <div class="row" *ngIf="isClient()">
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="header-title">Missions</h4>
+                       
+                    </div>
+
+                  <app-chart-client></app-chart-client>
+                    
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+     
+    </div>
+    <!-- end row -->
+
+    <div class="row" *ngIf="isAdmin()">
+        <div class="col-xl-12 col-lg-8 order-lg-2 order-xl-1">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="card-title mb-4 text-info">Assimilation </h4>
+                        <!-- <a href="javascript:void(0);" class="btn btn-sm btn-link">Export <i class="mdi mdi-download ms-1"></i></a>
+                         -->
+                    </div>
+<div class="row">
+    <div class="col-sm-6">
+        <label for="status-select" class="me-2">Engineer</label>
+
+        <select class="form-select" id="status-select" (change)="getTaskesByingenieur($event)" >
+                            <option selected="">Choose...</option>
+                            <option *ngFor="let i of listingenieurs" [value]="i.id">{{i.lastName}} {{i.firstName}}</option>
+                          
+                           
+         </select>
+     </div>
+    <div class="col-sm-6">
+        <label class="me-2">Client</label>
+
+         <select class="form-select" id="status-select" (change)="getTaskesByclient($event)">
+                <option selected="">Choose...</option>
+                <option *ngFor="let i of listclients"  [value]="i.id">{{i.lastName}} {{i.firstName}}</option>
+                          
+                           
+         </select>
+     </div>
+</div>
+<br>
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Engineer</th>
+                                    <th scope="col">Client</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Scheduled start date</th>
+                                    <th scope="col">Scheduled end date </th>
+                                    <th scope="col">Intervention start date </th>
+                                    <th scope="col">Intervention end date </th>
+                            
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of listfiches| paginate: { itemsPerPage: 3, currentPage: p }">
+                                <td>
+                                    <div class="flex-grow-1 ms-2">
+                                        {{c.tache.nom}}
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex-grow-1 ms-2">
+                                        {{c.tache.description}}
+                                        
+                                    </div>
+                                </td>
+                                    <td>
+                                        
+                                        <div class="d-flex align-items-center">
+                                           
+                                            <div class="flex-shrink-0">
+                                                <!-- <i class="mdi mdi-arrow-collapse-up text-danger font-18"></i> -->
+                                              
+                                                    <!-- <i class="mdi mdi-checkbox-blank-circle widget-icon rounded-circle bg-danger-lighten text-danger"></i> -->
+                                               
+                                                <img class="rounded-circle" src="http://localhost:8082/users/files/{{c.tache.ing.image}}" alt="Avtar image" width="33">
+                                              
+                                            </div>
+                                            <div class="flex-grow-1 ms-2">
+                                                {{c.tache.ing.firstName}} {{c.tache.ing.lastName}}
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <div class="d-flex align-items-center">
+                                           
+                                            <div class="flex-shrink-0">
+                                                <!-- <i class="mdi mdi-arrow-collapse-up text-danger font-18"></i> -->
+                                              
+                                                    <!-- <i class="mdi mdi-checkbox-blank-circle widget-icon rounded-circle bg-danger-lighten text-danger"></i> -->
+                                               
+                                                <img class="rounded-circle" src="http://localhost:8082/users/files/{{c.tache.client1.image}}" alt="Avtar image" width="33">
+                                              
+                                            </div>
+                                            <div class="flex-grow-1 ms-2">
+                                                {{c.tache.client1.firstName}} {{c.tache.client1.lastName}}
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+                                   
+                            
+                                    <td>
+                                        <!-- <span *ngIf="c.tache.priority=='Low'" class="badge badge-warning-lighten rounded-pill">Low</span>
+                                        <span  *ngIf="c.tache.priority=='Medium'" class="badge bg-success rounded-pill">Medium</span>
+                                        <span  *ngIf="c.tache.priority=='High'"  class="badge bg-danger rounded-pill">High</span> -->
+                                        <span *ngIf="c.tache.priority=='High'"span class="badge badge-danger-lighten p-1">High</span>
+                        
+                                        <span *ngIf="c.tache.priority=='Medium'"  class="badge badge-info-lighten p-1">Medium</span>
+                                        <span *ngIf="c.tache.priority=='Low'" class="badge badge-success-lighten p-1">Low</span>
+                                       
+
+                                    </td>
+                                   
+                                    <td>
+                                        <div class="flex-grow-1 ms-2">
+                                            <span class="mdi mdi-clipboard-clock-outline"></span>
+                                           
+                                           
+                                            {{c.tache.start | date : 'dd/MM/yyyy HH:MM'}} 
+                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-grow-1 ms-2">
+                                            <span class="mdi mdi-calendar-clock"></span>
+                                            {{c.tache.end | date : 'dd/MM/yyyy HH:MM'}} 
+                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-grow-1 ms-2">
+                                            <span class="mdi  mdi-account-clock-outline"></span>
+                                            {{c.debut | date : 'dd/MM/yyyy HH:MM'}} 
+                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <div class="flex-grow-1 ms-2">
+                                            <span class="mdi mdi-account-clock-outline"></span>
+                                            {{c.fin | date : 'dd/MM/yyyy HH:MM'}} 
+                                            
+                                        </div>
+                                    </td>
+                                   
+                                   
+                                </tr> <!-- end tr -->
+            
+                              
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+      
+        <!-- end col -->
+    </div>
+    <!-- end row -->    
+</div> <!-- End Content -->

@@ -1,0 +1,360 @@
+<div class="row">
+    <div class="col-xxl-8">
+        <!-- start page title -->
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <!-- <div class="app-search">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <button class="input-group-text btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="uil uil-sort-amount-down"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Due Date</a>
+                                <a class="dropdown-item" href="#">Added Date</a>
+                                <a class="dropdown-item" href="#">Assignee</a>
+                            </div>
+                        </div>
+                    </form>
+                </div> -->
+            </div>
+            <h4 class="page-title">Demands <a href="#" class="btn btn-success btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#standard-modal"><i class="mdi mdi-clipboard-plus"></i>Add Demand</a></h4>
+        </div>
+        <!-- end page title -->
+
+        <!-- tasks panel -->
+        <div class="mt-2">
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" data-bs-toggle="collapse" href="#todayTasks" role="button" aria-expanded="false" aria-controls="todayTasks">
+                    <i class="uil uil-angle-down font-18"></i>Awaiting engineer assignment <span class="text-muted">({{totalattente}})</span>
+                </a>
+            </h5>
+
+            <div class="collapse show" id="todayTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let c of attente">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <!-- <input type="checkbox" class="form-check-input" id="task1"> -->
+                                    <label class="form-check-label" for="task1">
+                                       {{c.nom}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                  
+                                    <div>
+                                        <ul class="list-inline font-13 text-end">
+                                            <li class="list-inline-item">
+                                                <i class="uil uil-schedule font-16 me-1"></i> 
+                                                {{c.start | date : 'dd/MM/yyyy HH:MM'}} <i class="dripicons-skip"></i>   {{c.end | date : 'dd/MM/yyyy HH:MM'}}
+
+                                            </li>
+                                            <!-- <li class="list-inline-item ms-1">
+                                                <i class="uil uil-align-alt font-16 me-1"></i> 3/7
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class="uil uil-comment-message font-16 me-1"></i> 21
+                                            </li> -->
+                                            <li class="list-inline-item ms-2">
+                                                <span *ngIf="c.priority=='High'"span class="badge badge-danger-lighten p-1">High</span>
+                        
+                                                <span *ngIf="c.priority=='Medium'"  class="badge badge-info-lighten p-1">Medium</span>
+                                                <span *ngIf="c.priority=='Low'" class="badge badge-success-lighten p-1">Low</span>
+                                            </li>
+                                            <li class="list-inline-item ms-2">
+                                                <div _ngcontent-bnm-c83="" class="dropdown">
+                                                    <a _ngcontent-bnm-c83="" href="#" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle arrow-none card-drop">
+                                                        <i _ngcontent-bnm-c83="" class="mdi mdi-dots-vertical"></i>
+                                                    </a>
+                                                       <div _ngcontent-bnm-c83="" class="dropdown-menu dropdown-menu-end" style="">
+                                                            <a _ngcontent-bnm-c83="" href="javascript:void(0);" class="dropdown-item" ><i class="mdi mdi-pencil me-1"></i>Edit</a>
+                                                            <a _ngcontent-bnm-c83="" href="javascript:void(0);" class="dropdown-item" ><i class="mdi mdi-delete me-1"></i>Delete</a>
+                                                           
+                                                        </div> 
+                                                       
+                                                    </div>
+                                               </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+
+                       
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div> <!-- end .collapse-->
+        </div> <!-- end .mt-2-->
+        <div class="mt-2">
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" data-bs-toggle="collapse" href="#todayTasks" role="button" aria-expanded="false" aria-controls="todayTasks">
+                    <i class="uil uil-angle-down font-18"></i>Todo  by Engineer<span class="text-muted">({{totaltodo}})</span>
+                </a>
+            </h5>
+
+            <div class="collapse show" id="todayTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let c of todo">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <!-- <input type="checkbox" class="form-check-input" id="task1"> -->
+                                    <label class="form-check-label" for="task1">
+                                       {{c.nom}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container">
+                                        <img src="http://localhost:8082/users/files/{{c.ing.image}}" alt="image" class="avatar-xs rounded-circle me-1" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Assigned to Arya S" aria-label="Assigned to Arya S">
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end">
+                                            <li class="list-inline-item">
+                                                <i class="uil uil-schedule font-16 me-1"></i> 
+                                                {{c.start | date : 'dd/mm/yyyy hh:mm'}} <i class="dripicons-skip"></i>   {{c.end | date : 'dd/mm/yyyy hh:mm'}}
+
+                                            </li>
+                                            <!-- <li class="list-inline-item ms-1">
+                                                <i class="uil uil-align-alt font-16 me-1"></i> 3/7
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class="uil uil-comment-message font-16 me-1"></i> 21
+                                            </li> -->
+                                            <li class="list-inline-item ms-2">
+                                                <span *ngIf="c.priority=='High'"span class="badge badge-danger-lighten p-1">High</span>
+                        
+                                                <span *ngIf="c.priority=='Medium'"  class="badge badge-info-lighten p-1">Medium</span>
+                                                <span *ngIf="c.priority=='Low'" class="badge badge-success-lighten p-1">Low</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+
+                       
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div> <!-- end .collapse-->
+        </div> <!-- end .mt-2-->
+
+        <!-- upcoming tasks -->
+        <div class="mt-4">
+
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" data-bs-toggle="collapse" href="#upcomingTasks" role="button" aria-expanded="false" aria-controls="upcomingTasks">
+                    <i class="uil uil-angle-down font-18"></i>Inprogress <span class="text-muted">({{totalinprogress}})</span>
+                </a>
+            </h5>
+
+            <div class="collapse show" id="upcomingTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let c of inprogress">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <!-- <input type="checkbox" class="form-check-input" id="task4"> -->
+                                    <label class="form-check-label" for="task4">
+                                       {{c.nom}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container3">
+                                        <img src="http://localhost:8082/users/files/{{c.ing.image}}" alt="image" class="avatar-xs rounded-circle me-1" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Assigned to James B" aria-label="Assigned to James B">
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end">
+                                            <li class="list-inline-item">
+                                                <i class="uil uil-schedule font-16 me-1"></i> 
+                                                {{c.start | date : 'dd/mm/yyyy hh:mm'}} <i class="dripicons-skip"></i>   {{c.end | date : 'hh:mm'}}
+
+                                            </li>
+                                            <!-- <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" [routerLink]="['/home/reclamation',c.id]">Add Reclamation</a>
+                                            
+                                            </div> -->
+                                            
+                                             <!-- <li class="list-inline-item ms-1">
+                                              
+                                                <i class="uil uil-align-alt font-16 me-1" [routerLink]="['/home/reclamation',c.id]">Add Reclamation</i> 
+                                            </li>  -->
+                                            <!-- <li class="list-inline-item ms-1">
+                                                <i class="uil uil-comment-message font-16 me-1"></i> 36
+                                            </li>  -->
+                                            <li class="list-inline-item ms-2">
+                                                <span *ngIf="c.priority=='High'"span class="badge badge-danger-lighten p-1">High</span>
+                        
+                                                <span *ngIf="c.priority=='Medium'"  class="badge badge-info-lighten p-1">Medium</span>
+                                                <span *ngIf="c.priority=='Low'" class="badge badge-success-lighten p-1">Low</span>
+                                            </li>
+                                           <li class="list-inline-item ms-2">
+                                            <div _ngcontent-bnm-c83="" class="dropdown">
+                                                <a _ngcontent-bnm-c83="" href="#" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle arrow-none card-drop">
+                                                    <i _ngcontent-bnm-c83="" class="mdi mdi-dots-vertical"></i>
+                                                </a>
+                                                    <div _ngcontent-bnm-c83="" class="dropdown-menu dropdown-menu-end" style="">
+                                                        <a _ngcontent-bnm-c83="" href="javascript:void(0);" class="dropdown-item" [routerLink]="['/home/reclamation',c.id]"><i class="mdi mdi-comment-check-outline "></i> Add Reclamation</a>
+                                                       
+                                                    </div>
+                                                </div>
+                                           </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+
+                       
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div> <!-- end collapse-->
+        </div>
+        <!-- end upcoming tasks -->
+
+        <!-- start other tasks -->
+        <div class="mt-4 mb-4">
+            
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" data-bs-toggle="collapse" href="#otherTasks" role="button" aria-expanded="false" aria-controls="otherTasks">
+                    <i class="uil uil-angle-down font-18"></i>Closed <span class="text-muted">({{totaldone}})</span>
+                </a>
+            </h5>
+
+            <div class="collapse show" id="otherTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let c of done">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <!-- <input type="checkbox" class="form-check-input" id="task7"> -->
+                                    <label class="form-check-label" for="task7">
+                                        {{c.nom}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container6">
+                                        <img src="http://localhost:8082/users/files/{{c.ing.image}}" alt="image" class="avatar-xs rounded-circle me-1" data-bs-container="#tooltip-container6" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Assigned to Arya S" aria-label="Assigned to Arya S">
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end">
+                                            <li class="list-inline-item">
+                                                <i class="uil uil-schedule font-16 me-1"></i>
+                                                {{c.start | date : 'dd/mm/yyyy hh:mm'}} <i class="dripicons-skip"></i>   {{c.end | date : 'hh:mm'}}
+
+                                            </li>
+                                            <!-- <li class="list-inline-item ms-1">
+                                                <i class="uil uil-align-alt font-16 me-1"></i> 5/14
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class="uil uil-comment-message font-16 me-1"></i> 71
+                                            </li> -->
+                                            <li class="list-inline-item ms-2">
+                                                <span *ngIf="c.priority=='High'"span class="badge badge-danger-lighten p-1">High</span>
+                        
+                                                <span *ngIf="c.priority=='Medium'"  class="badge badge-info-lighten p-1">Medium</span>
+                                                <span *ngIf="c.priority=='Low'" class="badge badge-success-lighten p-1">Low</span>
+                                            </li>
+                                            <li class="list-inline-item ms-2">
+                                                <div _ngcontent-bnm-c83="" class="dropdown">
+                                                    <a _ngcontent-bnm-c83="" href="#" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle arrow-none card-drop">
+                                                        <i _ngcontent-bnm-c83="" class="mdi mdi-dots-vertical"></i>
+                                                    </a>
+                                                        <div _ngcontent-bnm-c83="" class="dropdown-menu dropdown-menu-end" style="">
+                                                            <a _ngcontent-bnm-c83="" href="javascript:void(0);" class="dropdown-item" [routerLink]="['/home/reclamation',c.id]"><i class="mdi mdi-eye-refresh-outline"></i> View detail</a>
+                                                           
+                                                        </div>
+                                                    </div>
+                                               </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+
+                       
+                    
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+   
+</div>
+
+<div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="standard-modalLabel"> Add Demand</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <form class="p-1" [formGroup]="demandeForm">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Title</label>
+                                <input type="text" class="form-control form-control-light" id="task-title" placeholder="Enter title"  formControlName="nom">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="task-priority2" class="form-label">Priority</label>
+                                <select class="form-select form-control-light" id="task-priority2" formControlName="priority" >
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-description" class="form-label">Description</label>
+                        <textarea class="form-control form-control-light" id="task-description" rows="3" formControlName="description"></textarea>
+                    </div>
+
+                    <div class="row">
+                       
+
+                        <div class="col-md-6 position-relative" id="datepicker1">
+                            <label class="form-label">Scheduled start date</label>
+                            <input type="datetime-local" class="form-control"  formControlName="start">
+                        </div>
+                        <div class="col-md-6 position-relative" id="datepicker1">
+                            <label class="form-label">Scheduled end date</label>
+                            <input type="datetime-local" class="form-control"  formControlName="end">
+                        </div>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"> <i class="mdi mdi-window-close"></i>Close</button>
+                <button type="button" class="btn btn-primary"(click)="addDemande()" data-bs-dismiss="modal"><i class="mdi mdi-shield-check-outline"></i>Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

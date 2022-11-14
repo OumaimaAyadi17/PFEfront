@@ -1,0 +1,117 @@
+
+<div class="content-page">
+    <div class="content">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li  class="breadcrumb-item"><a  routerLink="/home" >Dashboard</a></li>
+                            <li  class="breadcrumb-item"><a  routerLink="/home/listtasks">Missions</a></li>
+                            <li class="breadcrumb-item active">Engineer demands</li>
+                        </ol>
+                    </div>
+                    <!-- <h4 class="page-title">Demandes Clients  </h4> -->
+                
+             </div>
+            </div>
+        </div>     
+        <!-- end page title --> 
+        <div class="row">
+            <div class="col-12">
+<div class="card">
+    <div class="card-body pb-0">
+       
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="header-title">Engineer demands</h4>
+                
+            </div>
+    
+            <div class="alert alert-warning mt-2" role="alert">
+                <i class="uil-files-landscapes me-1 h4 align-middle"></i> <b>{{totaltaskesEncours}}</b> Total engineer requests
+            </div>
+            <!-- <div class="dropdown">
+                <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i> -->
+                <!-- </a> -->
+                <!-- <div class="dropdown-menu dropdown-menu-end" style="">
+                  
+                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-cached me-1"></i>Refresh</a>
+                   
+                    <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-circle-edit-outline me-1"></i>Edit</a>
+                   
+                    <a href="javascript:void(0);" class="dropdown-item text-danger"><i class="mdi mdi-delete-outline me-1"></i>Remove</a>
+                </div> -->
+            <!-- </div> -->
+       
+    </div>
+
+    
+    <div  *ngFor="let demande of Encours" class="card-body py-0" data-simplebar="init" style="max-height: 315px;">
+        <div class="simplebar-wrapper" style="margin: 0px -24px;">
+            <div class="simplebar-height-auto-observer-wrapper">
+        <div class="simplebar-height-auto-observer">
+
+        </div></div><div class="simplebar-mask">
+            <div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px 24px;">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <div class="avatar-sm rounded-circle h3 my-0">
+                   
+                        <img src="http://localhost:8082/users/files/{{demande.ing.image}}" alt="image" class="avatar-xs rounded-circle me-1" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Assigned to Arya S" aria-label="Assigned to Arya S">
+                   
+                </div>
+            </div>
+            <div class="flex-grow-1 ms-2">
+                <h4 class="mt-0 mb-1 font-16 fw-semibold">{{demande.nom}}</h4>
+                <p class="mb-0 text-muted">{{demande.description}}</p>
+            </div>
+            <i class="icon wb-check" aria-hidden="true"></i>
+               
+                <p class="mb-0 text-success">
+                    <button type="button" class="btn btn-success rounded-pill" *ngIf="demande.confirmationAdmin=='En cours'" (click)="accepterdemandeTacheIng(demande.id)" >
+                        <i _ngcontent-agx-c68="" class="mdi mdi-check-bold me-1"  ></i>Accept</button>
+                        <button type="button" class="btn btn-danger rounded-pill"  *ngIf="demande.confirmationAdmin=='En cours'" (click)="refuserdemandeTacheIng(demande.id)">
+                            <i _ngcontent-agx-c68="" class="mdi mdi-close-thick me-1" ></i>Reject</button>
+                            <button type="button" class="btn btn-primary rounded-pill" *ngIf="demande.confirmationAdmin=='Non confirmé'"  data-bs-toggle="modal" data-bs-target="#top-modal" (click)="open(demande.id)">
+                                <i _ngcontent-agx-c68="" class="mdi mdi-account-convert-outline me-1" ></i>Assign another engineer</button>
+                    </p>
+        </div>
+
+        <hr class="opacity-50 bg-secondary-lighten">
+
+        
+
+    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 453px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 219px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Modal add ing for task-->
+
+<div id="top-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-top">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="topModalLabel">Choose engineer</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <form class="p-1" [formGroup]="AffectationForm">
+                    <label for="task-title" class="form-label">Engineer</label>
+                    <select class="form-select form-control-light" id="task-priority" formControlName="ING_ID">
+                        <option *ngFor="let ing of listingenieurs" [value]="ing.id">{{ing.lastName}} {{ing.firstName}}</option>
+                       
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="AffecterIng()"  data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

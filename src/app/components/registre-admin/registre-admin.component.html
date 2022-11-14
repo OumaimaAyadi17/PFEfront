@@ -1,0 +1,140 @@
+<body class="authentication-bg" data-layout-config="{&quot;darkMode&quot;:false}" data-layout-color="light" data-leftbar-compact-mode="condensed">
+
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-4 col-lg-5">
+                    <div class="card">
+                        <!-- Logo-->
+                        <div class="card-header pt-4 pb-4 text-center bg-primary-lighten">
+                            <a href="index.html">
+                                <span><img src="assets/images/newlogo.png" alt="" height="90"></span>
+                            </a>
+                        </div>
+
+                        <div class="card-body p-4">
+                            
+                            <div class="text-center w-75 m-auto">
+                                <h4 class="text-dark-50 text-center mt-0 fw-bold">Sign Up</h4>
+                                <p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute </p>
+                            </div>
+
+                            <form [formGroup]="RegisterForm" >
+                                <div id="basicwizard">
+
+                                    <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
+                                        <!-- <li class="nav-item">
+                                            <a routerLink="/registreAdmin" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2"> 
+                                                <i class="mdi mdi-account-circle me-1"></i>
+                                                <span class="d-none d-sm-inline">Admin</span>
+                                            </a>
+                                        </li> -->
+                                        <li class="nav-item">
+                                            <a routerLink="/registreIngenieur" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                <i class="uil-constructor"></i>
+                                                <span class="d-none d-sm-inline">Ingenieur</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/registreClient" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2 active">
+                                                <i class="uil-users-alt"></i>
+                                                <span class="d-none d-sm-inline">Client</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content b-0 mb-0">
+                                     
+
+                                      
+                                        <div class="tab-pane active" id="basictab1">
+                                           
+                                            <div class="row">
+                                               
+                                                <div class="col-12">
+                                                    
+                                                        <div class="row mb-3">
+                                                            <label class="col-md-3 col-form-label" for="userName">Firstname</label>
+                                                            <div class="col-md-9">
+                                                                <input type="text" class="form-control" formControlName="firstName" placeholder="Enter your Firstname" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label class="col-md-3 col-form-label" for="userName">Lastname</label>
+                                                            <div class="col-md-9">
+                                                                <input type="text" class="form-control"  formControlName="lastName" placeholder="Enter your Lastname" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label class="col-md-3 col-form-label" for="userName">Username</label>
+                                                            <div class="col-md-9">
+                                                                <input type="text" class="form-control" formControlName="username"  placeholder="Enter your Username" required="">
+                                                            </div>
+                                                        </div>
+                                                        
+                                        
+                                                    <div class="row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="password"> Password</label>
+                                                        <div class="col-md-9">
+                                                            
+                                                            <input type="password" id="password"  formControlName="password" class="form-control" placeholder="Enter your password">
+                                                           
+                                                            </div>
+                                        
+                                                    </div>
+                                                    <div>
+                                                    
+                                                        <label class="col-md-2 col-form-label" >Picture</label>
+                                                        <div class="group-input">
+                                                            <input type="file" (change)="handleFileInput($event)" 
+                                                            name="file"  class="form-control form-control-user"
+                                                                id="exampleRepeatPassword" placeholder="file">
+                                                        </div>
+                                                </div>
+                                                    
+                                                   
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                                                    <label class="form-check-label" for="checkbox-signup">I accept <a href="#" class="text-muted">Terms and Conditions</a></label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 text-center">
+                                                <button class="btn btn-primary" type="submit" (click)="onSubmit()"> Sign Up </button>
+                                            </div>
+                                        </div>
+                                
+                                     </div>
+                                </div> <!-- end #basicwizard-->
+                           
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Already have account? <a href='' class="text-muted ms-1"><b>Log In</b></a></p>
+                        </div> <!-- end col-->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+  <app-footer></app-footer>
+  
+    
+
+
+<!-- Mirrored from coderthemes.com/hyper/modern/pages-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 May 2022 15:05:39 GMT -->
+
+</body>

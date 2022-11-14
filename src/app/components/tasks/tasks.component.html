@@ -1,0 +1,549 @@
+<div class="content-page">
+    <div class="content">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a routerLink="/home">Dashboard</a></li>
+                          
+                            <li class="breadcrumb-item active">Mission Board</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Missions Board 
+                        <button type="button" class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#standard-modal">
+                             <i class=" uil-plus"></i>Add Mission
+                        </button>
+                    </h4>  
+             </div>
+            </div>
+        </div>     
+        <!-- end page title --> 
+
+        <div class="row">
+            <div class="col-12">
+                <div class="board">
+                    <div class="tasks" data-plugin="dragula" data-containers='["task-list-one", "task-list-two", "task-list-three", "task-list-four"]' style="background-color: rgb(108, 209, 209);">
+                       
+                        <h5 class="mt-0 task-header" style="background-color: rgb(14, 193, 193);text-align: center;color: black;">
+                            Awaiting Confirmation Admin({{totalattente}})
+                        </h5>
+                       
+                        <div id="task-list-one" class="task-list-items" cdkDropList
+                        #todoList="cdkDropList"
+                        [cdkDropListData]="attente"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+
+                            <!-- Task Item -->
+                            <div class="card mb-0" *ngFor="let tache of attente" cdkDrag >
+                                <div class="card-body p-3" >
+                                    <small class="float-end text-muted">{{tache.creationDate | date : 'dd-MM-yyyy'}}</small>
+                                    <span *ngIf="tache.priority=='High'" class="badge bg-danger">High</span>
+                                    <span *ngIf="tache.priority=='Medium'" class="badge bg-secondary text-light">Medium</span>
+                                    <span *ngIf="tache.priority=='Low'" class="badge bg-success">Low</span>
+                                    <h5 class="mt-2 mb-2">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{tache.nom}}</a>
+                                    </h5>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-card-text-outline text-muted"></i>
+                                            {{tache.description}}
+                                        </span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-four"></i>
+                                            {{tache.start | date : 'dd-MM-yyyy  HH:mm' }} 
+                                        </span>
+                                        
+                                       
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-eight"></i>
+                                            {{tache.end | date : 'dd-MM-yyyy  HH:mm'}}
+                                        </span>
+                                    </p>
+                                    <div class="dropdown float-end">
+                                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-18"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                           <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#standard-modal1" (click)="open(tache)">
+                                            <i class="mdi mdi-pencil me-1"></i>Edit
+                                            </a> 
+                                            <button href="javascript:void(0);" class="dropdown-item" (click)="delete(tache.id)">
+                                                <i class="mdi mdi-delete me-1" ></i>Delete
+                                            </button>
+                                    
+                                        </div>
+                                      
+                                    </div>
+
+                                    <p class="mb-0">
+                                        <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                                        <span class="align-middle">{{tache.client1.firstName}} {{tache.client1.lastName}}</span>
+                                    </p>
+                                </div> <!-- end card-body -->
+                            </div>
+                            <!-- Task Item End --> 
+                        </div> <!-- end company-list-1-->
+                    </div>
+                    <div class="tasks" data-plugin="dragula" data-containers='["task-list-one", "task-list-two", "task-list-three", "task-list-four"]' style="background-color: rgb(185, 217, 247);">
+                       
+                        <h5 class="mt-0 task-header" style="background-color: rgb(28, 116, 198);text-align: center;color: black;">TODO ({{totaltodo}})</h5>
+                       
+                        <div id="task-list-one" class="task-list-items" cdkDropList
+                        #todoList="cdkDropList"
+                        [cdkDropListData]="todo"
+                        [cdkDropListConnectedTo]="[inprogressList]"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+
+                            <!-- Task Item -->
+                            <div class="card mb-0" *ngFor="let tache of todo" cdkDrag >
+                                <div class="card-body p-3" >
+                                    <small class="float-end text-muted">{{tache.creationDate | date : 'dd-MM-yyyy'}}</small>
+                                    <span *ngIf="tache.priority=='High'" class="badge bg-danger">High</span>
+                                    <span *ngIf="tache.priority=='Medium'" class="badge bg-secondary text-light">Medium</span>
+                                    <span *ngIf="tache.priority=='Low'" class="badge bg-success">Low</span>
+                                    <h5 class="mt-2 mb-2">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{tache.nom}}</a>
+                                    </h5>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-card-text-outline text-muted"></i>
+                                            {{tache.description}}
+                                        </span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-four"></i>
+                                            {{tache.start | date : 'dd-MM-yyyy  HH:mm' }} 
+                                        </span>  
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-eight"></i>
+                                            {{tache.end | date : 'dd-MM-yyyy  HH:mm'}}
+                                        </span>
+                                    </p>
+
+                                    <div class="dropdown float-end">
+                                        <button class="btn btn-primary btn-xs mb-0" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmer votre choix" *ngIf="verifEtat==false" (click)="validerEtatInprogress(tache.id)">
+                                            <i class="mdi mdi-checkbox-marked-circle"></i>
+                                        </button>
+                                          <!-- <button class="btn btn-primary btn-xs mb-0" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmer votre choix" *ngIf="tache.status=='inprogress'" >
+                                            <i class="mdi mdi-checkbox-marked-circle"></i>
+                                          </button> -->
+                                       
+                                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-18"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                     
+                                           <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#standard-modal1" (click)="open(tache)"><i class="mdi mdi-pencil me-1"></i>Edit</a>
+                                          
+                                            <button href="javascript:void(0);" class="dropdown-item" (click)="delete(tache.id)"><i class="mdi mdi-delete me-1" ></i>Delete</button>
+                                    
+                                        </div>
+                                      
+                                    </div>
+
+                                    <p class="mb-0">
+                                        <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                                        <span class="align-middle">{{tache.client1.firstName}} {{tache.client1.lastName}}</span>
+                                    </p>
+                                </div> <!-- end card-body -->
+                            </div>
+                            <!-- Task Item End -->
+
+                            
+                        </div> <!-- end company-list-1-->
+                    
+                    </div>
+
+                    <div class="tasks" style="background-color: rgb(236, 215, 78);">
+                        <h5 class="mt-0 task-header text-uppercase" style="background-color: rgba(156, 114, 7, 0.363);text-align: center;color: black;">In Progress ({{totalInprogress}})</h5>
+                        
+                        <div id="task-list-two" class="task-list-items"cdkDropList
+                        #inprogressList="cdkDropList"
+                        [cdkDropListData]="inprogress"
+                        [cdkDropListConnectedTo]="[doneList]"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+
+                            <!-- Task Item -->
+                            <div class="card mb-0" *ngFor="let tache of inprogress" cdkDrag >
+                                <div class="card-body p-3">
+                                    <small class="float-end text-muted">{{tache.creationDate | date : 'dd-MM-yyyy'}}</small>
+                                 
+                                    <span *ngIf="tache.priority=='High'" class="badge bg-danger">High</span>
+                                    <span *ngIf="tache.priority=='Medium'" class="badge bg-secondary text-light">Medium</span>
+                                    <span *ngIf="tache.priority=='Low'" class="badge bg-success">Low</span>
+
+
+                                    <h5 class="mt-2 mb-2">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{tache.nom}}</a>
+                                    </h5>
+
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-card-text-outline text-muted"></i>
+                                            {{tache.description}}
+                                        </span>
+                                       
+                                        <!-- <span class="text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
+                                            <b>17</b> Comments
+                                        </span> -->
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-four"></i>
+                                            {{tache.start | date : 'dd-MM-yyyy  HH:mm' }} 
+                                        </span>
+                                        
+                                       
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-eight"></i>
+                                            {{tache.end | date : 'dd-MM-yyyy  HH:mm' }}
+                                        </span>
+                                        
+                                       
+                                    </p>
+
+                                    <div class="dropdown float-end">
+                                      
+                                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-18"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <!-- <a href="javascript:void(0);" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#standard-modal1"  (click)="open(tache)"><i class="mdi mdi-pencil me-1"></i>Edit</a> -->
+                                            <!-- item-->
+                                            <!-- <a href="javascript:void(0);" class="dropdown-item" (click)="delete(tache.id)"><i class="mdi mdi-delete me-1"></i>Delete</a> -->
+                                            <!-- item-->
+                                            <!-- item--> 
+
+                                            <a href="javascript:void(0);" class="dropdown-item"  (click)="addDemandeCaloture(tache.id)" *ngIf="tache.verif==false"><i class="mdi mdi-exit-to-app me-1"></i>Close Mission</a>
+                                          
+                                            <a href="javascript:void(0);" [routerLink]="['/home/addIntervention',tache.id]" class="dropdown-item"  >
+                                                <i class="mdi mdi-plus-circle-outline me-1"  ></i>Add File Intervention</a>
+                                        </div>
+                                    </div>
+
+                                    <p class="mb-0">
+                                        <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                                        <span class="align-middle">{{tache.client1.firstName}} {{tache.client1.lastName}}</span>
+                                    </p>
+                                </div> <!-- end card-body -->
+                            </div>
+                            <!-- Task Item End -->
+
+                        
+
+                        </div> <!-- end company-list-2-->
+                    </div>
+
+
+                    <!-- <div class="tasks">
+                        <h5 class="mt-0 task-header text-uppercase">Review ({{totalreview}})</h5>
+                        <div id="task-list-three" class="task-list-items" cdkDropList
+                        #reviewList="cdkDropList"
+                        [cdkDropListData]="review"
+                        [cdkDropListConnectedTo]="[doneList]"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)">
+
+                          
+                            <div class="card mb-0" *ngFor="let tache of review" cdkDrag>
+                                <div class="card-body p-3">
+                                    <small class="float-end text-muted">{{tache.deadline}}</small>
+                                    <span *ngIf="tache.priority=='High'" class="badge bg-danger">High</span>
+                                    <span *ngIf="tache.priority=='Medium'" class="badge bg-secondary text-light">Medium</span>
+                                    <span *ngIf="tache.priority=='Low'" class="badge bg-success">Low</span>
+
+                                    <h5 class="mt-2 mb-2">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body">{{tache.nom}}</a>
+                                    </h5>
+
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
+                                            {{tache.description}}
+                                        </span>
+                                      
+                                    </p>
+
+                                    <div class="dropdown float-end">
+                                        <a class="btn btn-primary btn-xs mb-0" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmer votre choix" (click)="validerEtatDone(tache.id)">
+                                            <i class="mdi mdi-checkbox-marked-circle"></i>
+                                          </a>
+                                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-18"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                         
+                                            <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-pencil me-1" data-bs-toggle="modal" data-bs-target="#standard-modal1"></i>Edit</a>
+                                       
+                                            <a href="javascript:void(0);" class="dropdown-item"  (click)="delete(tache.id)"><i class="mdi mdi-delete me-1" (click)="delete(tache.id)"></i>Delete</a>
+                                         
+                                            <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-exit-to-app me-1"></i>Leave</a>
+                                        </div>
+                                    </div>
+
+                                    <p class="mb-0">
+                                        <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                                        <span class="align-middle">{{tache.client1.firstName}} {{tache.client1.lastName}}</span>
+                                    </p>
+                                </div> 
+                            </div>
+                           
+
+                          
+
+                        </div> 
+                    </div> -->
+
+                    <div class="tasks"  style="background-color: rgba(212, 27, 27, 0.363);">
+                        <h5 class="mt-0 task-header text-uppercase" style="background-color: rgba(69, 3, 3, 0.363);text-align: center;color: black;" >closed({{totaldone}})</h5>
+                        <div id="task-list-four" class="task-list-items" cdkDropList
+                        #doneList="cdkDropList"
+                        [cdkDropListData]="done"
+                        (cdkDropListDropped)="drop($event)"  >
+
+                            <!-- Task Item -->
+                            <div class="card mb-0"  *ngFor="let tache of done" cdkDrag >
+                                <div class="card-body p-3">
+                                    <small class="float-end text-muted">{{tache.creationDate | date : 'dd-MM-yyyy'}}</small>
+                                    <span *ngIf="tache.priority=='High'" class="badge bg-danger">High</span>
+                                    <span *ngIf="tache.priority=='Medium'" class="badge bg-secondary text-light">Medium</span>
+                                    <span *ngIf="tache.priority=='Low'" class="badge bg-success">Low</span>
+
+                                    <h5 class="mt-2 mb-2">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal" class="text-body"> {{tache.nom}}</a>
+                                    </h5>
+
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-card-text-outline text-muted"></i>
+                                            {{tache.description}}
+                                        </span>
+                                        <!-- <span class="text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
+                                            <b>287</b> Comments
+                                        </span> -->
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-four"></i>
+                                            {{tache.start | date : 'dd-MM-yyyy  HH:mm'}} 
+                                        </span>
+                                        
+                                       
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                                            <i class="mdi mdi-clock-time-eight"></i>
+                                            {{tache.end | date : 'dd-MM-yyyy  HH:mm'}}
+                                        </span>
+                                        
+                                       
+                                    </p>
+
+                                    <!-- <div class="dropdown float-end">
+                                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical font-18"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <button  class="dropdown-item"  (click)="delete(tache.id)"><i class="mdi mdi-delete me-1"></i>Delete</button>
+                                        </div>
+                                    </div>
+                 -->
+                                    <p class="mb-0">
+                                        <img src="http://localhost:8082/users/files/{{tache.client1.image}}" alt="user-img" class="avatar-xs rounded-circle me-1">
+                                        <span class="align-middle">{{tache.client1.firstName}} {{tache.client1.lastName}}</span>
+                                    </p>
+                                </div> <!-- end card-body -->
+                            </div>
+                            <!-- Task Item End -->
+                            
+                        </div> <!-- end company-list-4-->
+                    </div>
+
+                </div> <!-- end .board-->
+            </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+        
+    </div> <!-- End Content -->
+
+</div>
+
+
+
+<!-- update task Modal-->
+
+<div id="standard-modal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="standard-modalLabel"> Update task </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <form class="p-1" [formGroup]="updateTacheForm">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Title</label>
+                                <input type="text" class="form-control form-control-light" id="task-title" placeholder="Enter title"  formControlName="nom">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="task-priority2" class="form-label">Priority</label>
+                                <select class="form-select form-control-light" id="task-priority2" formControlName="priority" >
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-description" class="form-label">Description</label>
+                        <textarea class="form-control form-control-light" id="task-description" rows="3" formControlName="description"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-md-4">
+                                <label for="task-title" class="form-label">Client</label>
+                                <select class="form-select form-control-light" id="task-priority" formControlName="CLIENT_ID">
+                                    <option *ngFor="let client of listClients" [value]="client.id">{{client.lastName}} {{client.firstName}}</option>
+                                   
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6"> -->
+                            <!-- <div class="mb-3 position-relative" id="datepicker1">
+                                <label class="form-label">Deadline</label>
+                                <input type="date" class="form-control"  formControlName="start">
+                            </div> -->
+                             <!-- <div class="col-md-6"> -->
+                                <div class="mb-3 " id="datepicker1">
+                                    <label class="form-label">start</label>
+                                    <input type="datetime-local" class="form-control"   formControlName="start">
+                                </div>
+                                <div class="mb-3" id="datepicker1">
+                                    <label class="form-label">End</label>
+                                    <input type="datetime-local" class="form-control"  formControlName="end">
+                                </div>
+                              
+                            <!-- </div> -->
+                            <!-- <div class="mb-3 position-relative" id="datepicker1">
+                                <label class="form-label">heure Fin Theo</label>
+                                <input type="time" class="form-control"  formControlName="heureFinTheo">
+                            </div>
+                            <div class="mb-3 position-relative" id="datepicker1">
+                                <label class="form-label">heure Debut Theo</label>
+                                <input type="time" class="form-control"  formControlName="heureDebutTheo">
+                            </div> -->
+                        <!-- </div> -->
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="uil-times"></i>Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateTache()"><i class=" uil-check"></i>Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!-- MODAL add TASK -->
+<div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="standard-modalLabel"> Add Mission</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <form class="p-1" [formGroup]="tacheForm">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Title</label>
+                                <input type="text" class="form-control form-control-light" id="task-title" placeholder="Enter title"  formControlName="nom">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="task-priority2" class="form-label">Priority</label>
+                                <select class="form-select form-control-light" id="task-priority2" formControlName="priority" >
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-description" class="form-label">Description</label>
+                        <textarea class="form-control form-control-light" id="task-description" rows="3" placeholder="Enter description" formControlName="description"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Client</label>
+                                <select class="form-select form-control-light" id="task-priority" formControlName="CLIENT_ID">
+                                    <option *ngFor="let client of listClients" [value]="client.id">{{client.lastName}} {{client.firstName}}</option>
+                                   
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-6"> -->
+                            <div class="mb-3" id="datepicker1">
+                                <label class="form-label">start</label>
+                                <input type="datetime-local" class="form-control"  formControlName="start">
+                            </div>
+                            <div class="mb-3" id="datepicker1">
+                                <label class="form-label">End</label>
+                                <input type="datetime-local" class="form-control"  formControlName="end">
+                            </div>
+                          
+                        <!-- </div> -->
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class="uil-times"></i>Close</button>
+                <button type="button" class="btn btn-success"(click)="addTache()" data-bs-dismiss="modal"><i class=" uil-check"></i>Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+

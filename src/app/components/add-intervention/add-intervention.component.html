@@ -1,0 +1,77 @@
+<div class="content-page">
+    <div class="content" data-select2-id="select2-data-6-cmi3">
+        
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a routerLink="/home">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/home/tasks">Tasks</a></li>
+                            <li class="breadcrumb-item active">Intervention card</li>
+                        </ol>
+                    </div>
+                    <h4  class="page-title" >Create Intervention card </h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title --> 
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="ficheForm">
+                        <div class="row">
+                            <div class="col-xl-6">
+                               
+
+                                <div class="mb-3">
+                                    <label for="project-overview" class="form-label">Overview</label>
+                                    <textarea class="form-control" id="project-overview" rows="10" placeholder="Enter some brief about project.." formControlName="description"></textarea>
+                                </div>
+
+                                <!-- Date View -->
+                               
+
+            
+                                <div class="mb-3 position-relative" id="datepicker1">
+                                    <label class="form-label">Intervention start date</label>
+                                    <input type="datetime-local" class="form-control"  formControlName="debut">
+                                </div>
+                                <div class="mb-3 position-relative" id="datepicker1">
+                                    <label class="form-label">Intervention End date</label>
+                                    <input type="datetime-local" class="form-control"  formControlName="fin">
+                                </div>
+
+                                <div >
+
+                                    <button type="button" class=" btn btn-xs btn btn-success" (click)="addfiche()">Save</button>
+                        
+                                </div>
+
+                         
+                           
+                            </div> <!-- end col-->
+                            <div class="col-xxl-3 col-xl-6 order-xl-1 order-xxl-2">
+                                <img src="assets/images/intervention.png" height="230" alt="File not found Image">
+                            </div>
+                           
+                        </div>
+                        <!-- end row -->
+                    </form>
+                    </div> <!-- end card-body -->
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        
+        </div>
+        <!-- end row-->
+        
+    </div> <!-- End Content -->
+
+ 
+
+</div>
+
+
